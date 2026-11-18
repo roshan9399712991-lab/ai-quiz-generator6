@@ -1,0 +1,479 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Government Sandipani School, Chhatwai, Shahdol, Madhya Pradesh. Education, innovation and AI learning.">
+<title>Government Sandipani School | Chhatwai, Shahdol</title>
+
+<style>
+:root {
+  --primary: #123c73;
+  --secondary: #087e8b;
+  --light: #f3f7fc;
+  --dark: #172b4d;
+  --white: #fff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: Arial, sans-serif;
+  color:var(--dark);
+  background:#fff;
+  line-height:1.6;
+}
+a { text-decoration:none; color:inherit; }
+button { cursor:pointer; border:0; }
+header {
+  background:var(--white);
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 2px 12px #0001;
+}
+.nav {
+  max-width:1200px;
+  margin:auto;
+  padding:15px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo { font-size:19px; font-weight:bold; color:var(--primary); }
+.logo span { color:var(--secondary); }
+nav { display:flex; gap:22px; align-items:center; }
+nav a { font-size:14px; font-weight:600; }
+nav a:hover { color:var(--secondary); }
+.menu { display:none; font-size:25px; background:none; }
+.hero {
+  min-height:570px;
+  display:flex;
+  align-items:center;
+  color:white;
+  background:linear-gradient(110deg,#102d56ed,#087e8bba),
+  url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600") center/cover;
+}
+.hero-content { max-width:1200px; margin:auto; padding:60px 25px; width:100%; }
+.hero h1 { font-size:clamp(34px,5vw,58px); max-width:750px; line-height:1.2; }
+.hero p { font-size:18px; margin:20px 0; max-width:650px; }
+.btn {
+  display:inline-block;
+  background:#fff;
+  color:var(--primary);
+  padding:13px 23px;
+  border-radius:7px;
+  font-weight:bold;
+  margin:7px 5px 7px 0;
+}
+.btn.primary { background:var(--secondary); color:white; }
+.container { max-width:1200px; margin:auto; padding:75px 22px; }
+.section-title { text-align:center; margin-bottom:40px; }
+.section-title h2 { color:var(--primary); font-size:32px; }
+.section-title p { color:#64748b; margin-top:8px; }
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:22px;
+}
+.card {
+  padding:25px;
+  border-radius:12px;
+  background:white;
+  box-shadow:0 5px 22px #0000000d;
+  border:1px solid #edf0f5;
+}
+.card h3 { color:var(--primary); margin-bottom:10px; }
+.icon { font-size:34px; margin-bottom:12px; }
+.light { background:var(--light); }
+.about { display:grid; grid-template-columns:1fr 1fr; gap:35px; align-items:center; }
+.about img { width:100%; border-radius:15px; }
+.about p { margin:14px 0; color:#526174; }
+.highlight {
+  background:linear-gradient(120deg,#123c73,#087e8b);
+  color:white;
+  text-align:center;
+  padding:55px 20px;
+}
+.highlight h2 { font-size:30px; }
+.highlight p { margin:12px auto; max-width:700px; }
+.teacher { text-align:center; }
+.teacher .avatar {
+  height:90px; width:90px; border-radius:50%;
+  margin:0 auto 15px; background:#e1efff;
+  display:grid; place-items:center; font-size:38px;
+}
+ul { padding-left:20px; }
+li { margin:7px 0; }
+footer { background:#102d56; color:white; padding:35px 20px; text-align:center; }
+footer p { margin:7px; color:#d4e1f5; }
+
+/* AI CHATBOT */
+.chat-toggle {
+  position:fixed; bottom:22px; right:22px;
+  width:62px; height:62px; border-radius:50%;
+  background:var(--secondary); color:white;
+  font-size:27px; z-index:999;
+  box-shadow:0 5px 20px #0003;
+}
+.chatbox {
+  position:fixed; right:22px; bottom:95px;
+  width:min(390px,calc(100vw - 30px));
+  height:570px; max-height:75vh;
+  background:white; border-radius:15px;
+  box-shadow:0 8px 35px #0003;
+  display:none; flex-direction:column;
+  overflow:hidden; z-index:999;
+}
+.chat-header {
+  background:var(--primary); color:white;
+  padding:15px; display:flex;
+  justify-content:space-between; align-items:center;
+}
+.chat-header button { background:none; color:white; font-size:23px; }
+.settings { padding:12px; background:#f1f5f9; }
+.settings label { display:block; font-size:12px; font-weight:bold; margin:6px 0; }
+.settings input,.settings select {
+  width:100%; padding:10px; border:1px solid #ccd5e1;
+  border-radius:6px; background:white;
+}
+.settings button {
+  margin-top:8px; padding:8px 13px;
+  background:var(--secondary); color:white; border-radius:5px;
+}
+#messages {
+  flex:1; overflow-y:auto; padding:14px;
+  background:#f8fafc;
+}
+.message {
+  padding:11px 13px; margin:9px 0;
+  border-radius:10px; max-width:90%;
+  white-space:pre-wrap; overflow-wrap:anywhere;
+  font-size:14px;
+}
+.bot { background:#e5edf8; margin-right:auto; }
+.user { background:#d2f3eb; margin-left:auto; }
+.chat-input {
+  display:flex; padding:12px; gap:8px;
+  border-top:1px solid #eee;
+}
+.chat-input input {
+  flex:1; min-width:0; padding:12px;
+  border:1px solid #ccd5e1; border-radius:7px;
+}
+.chat-input button {
+  padding:0 16px; background:var(--secondary);
+  color:white; border-radius:7px;
+}
+.status { font-size:11px; color:#64748b; margin-top:5px; }
+
+@media(max-width:750px) {
+  .menu { display:block; }
+  nav {
+    display:none; position:absolute; top:65px;
+    left:0; width:100%; background:white;
+    flex-direction:column; padding:20px;
+  }
+  nav.show { display:flex; }
+  .about { grid-template-columns:1fr; }
+  .hero { min-height:480px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">SANDIPANI <span>SCHOOL</span></div>
+    <button class="menu" onclick="toggleMenu()">☰</button>
+    <nav id="nav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#academics">Academics</a>
+      <a href="#ailab">AI Lab</a>
+      <a href="#teachers">Teachers</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Welcome to Government Sandipani School</h1>
+    <p>Building Knowledge, Innovation and Future-Ready Students through Quality Education and Artificial Intelligence.</p>
+    <a class="btn primary" href="#about">Explore School</a>
+    <a class="btn" href="#ailab">Explore AI Lab</a>
+  </div>
+</section>
+
+<section class="container" id="about">
+  <div class="about">
+    <div>
+      <h2>About Our School</h2>
+      <p>Government Sandipani School, Chhatwai, is a government co-educational institution located in Shahdol district, Madhya Pradesh.</p>
+      <p>Our mission is to provide quality education, develop creativity and encourage students to explore modern technologies.</p>
+      <p>We focus on academic excellence, practical learning, innovation and digital education.</p>
+      <a href="#academics" class="btn primary">Learn More</a>
+    </div>
+    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=900" alt="Students learning in classroom">
+  </div>
+</section>
+
+<section class="light">
+  <div class="container" id="academics">
+    <div class="section-title">
+      <h2>Our Academics</h2>
+      <p>Learning today for a better tomorrow.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="icon">📚</div><h3>Quality Education</h3><p>Strong academic foundations and subject-based learning.</p></div>
+      <div class="card"><div class="icon">🔬</div><h3>Practical Learning</h3><p>Learning through experiments, activities and projects.</p></div>
+      <div class="card"><div class="icon">💻</div><h3>Computer Education</h3><p>Developing digital skills and computational thinking.</p></div>
+      <div class="card"><div class="icon">🚀</div><h3>Future Skills</h3><p>Preparing students for emerging technologies.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="highlight" id="ailab">
+  <h2>Artificial Intelligence Innovation Lab</h2>
+  <p>Explore Artificial Intelligence, Machine Learning, Python Programming and real-world technology projects.</p>
+  <p><strong>AI Training Hours: 3:30 PM – 5:00 PM</strong></p>
+</section>
+
+<section class="container">
+  <div class="section-title">
+    <h2>AI Learning Programs</h2>
+    <p>From programming basics to advanced innovation.</p>
+  </div>
+  <div class="grid">
+    <div class="card"><div class="icon">🐍</div><h3>Python Programming</h3><p>Variables, loops, functions, file handling and projects.</p></div>
+    <div class="card"><div class="icon">🤖</div><h3>Artificial Intelligence</h3><p>Understand AI concepts and intelligent applications.</p></div>
+    <div class="card"><div class="icon">🧠</div><h3>Machine Learning</h3><p>Learn data, algorithms, predictions and models.</p></div>
+    <div class="card"><div class="icon">👁️</div><h3>Computer Vision</h3><p>Explore image recognition and object detection.</p></div>
+  </div>
+</section>
+
+<section class="light" id="teachers">
+  <div class="container">
+    <div class="section-title">
+      <h2>Our Mentors & Leadership</h2>
+      <p>Guidance, knowledge and inspiration.</p>
+    </div>
+    <div class="grid">
+      <div class="card teacher">
+        <div class="avatar">👩‍🏫</div>
+        <h3>Archna Khare Mam</h3>
+        <p>Principal</p>
+      </div>
+      <div class="card teacher">
+        <div class="avatar">👨‍💻</div>
+        <h3>Aditya Chauhan Sir</h3>
+        <p>AI & Python Trainer</p>
+        <p><a href="https://adityasir.in" target="_blank">adityasir.in</a></p>
+      </div>
+      <div class="card teacher">
+        <div class="avatar">👨‍🏫</div>
+        <h3>Chandan Saroj Sir</h3>
+        <p>AI Training Mentor – Delhi</p>
+      </div>
+      <div class="card teacher">
+        <div class="avatar">👨‍🏫</div>
+        <h3>Rajat Sir</h3>
+        <p>AI Training Mentor – Agra</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <div class="section-title">
+    <h2>Our Vision</h2>
+    <p>Empowering students with knowledge, creativity and technology.</p>
+  </div>
+  <div class="card">
+    <h3>Future-Ready Education</h3>
+    <p>Our vision is to introduce students to modern technologies and provide opportunities to build innovative solutions for real-world problems.</p>
+  </div>
+</section>
+
+<section class="light" id="contact">
+  <div class="container">
+    <div class="section-title">
+      <h2>Contact & Location</h2>
+      <p>Government Sandipani School</p>
+    </div>
+    <div class="card">
+      <h3>School Information</h3>
+      <p><strong>School:</strong> Government Sandipani School</p>
+      <p><strong>Location:</strong> Chhatwai, Shahdol, Madhya Pradesh, India</p>
+      <p><strong>AI Training:</strong> 3:30 PM – 5:00 PM</p>
+      <p><strong>Website:</strong> <a href="https://adityasir.in">adityasir.in</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <h2>Government Sandipani School</h2>
+  <p>Chhatwai, Shahdol, Madhya Pradesh, India</p>
+  <p>Education | Innovation | Artificial Intelligence</p>
+  <p>© 2026 Government Sandipani School. All Rights Reserved.</p>
+</footer>
+
+<!-- AI CHATBOT -->
+<button class="chat-toggle" onclick="toggleChat()">🤖</button>
+
+<div class="chatbox" id="chatbox">
+  <div class="chat-header">
+    <div>
+      <strong>Sandipani AI Assistant</strong>
+      <div style="font-size:11px">School Information & Learning Help</div>
+    </div>
+    <button onclick="toggleChat()">×</button>
+  </div>
+
+  <div class="settings">
+    <label>Groq API Key</label>
+    <input type="password" id="apiKey" placeholder="Enter your Groq API key">
+    <label>Select AI Model</label>
+    <select id="model">
+      <option value="openai/gpt-oss-120b">GPT-OSS 120B</option>
+      <option value="openai/gpt-oss-20b">GPT-OSS 20B</option>
+      <option value="llama-3.3-70b-versatile">Llama 3.3 70B</option>
+    </select>
+    <button onclick="saveSettings()">Save Settings</button>
+    <div class="status" id="status">API key is not configured.</div>
+  </div>
+
+  <div id="messages">
+    <div class="message bot">
+      Namaste! 👋 Welcome to Sandipani School AI Assistant.
+
+      You can ask me about:
+      • School information
+      • AI and Python classes
+      • Training timings
+      • Teachers and mentors
+
+      Aap Hindi, English ya Hinglish mein sawal pooch sakte hain.
+    </div>
+  </div>
+
+  <div class="chat-input">
+    <input id="question" placeholder="Ask something..." onkeydown="if(event.key==='Enter')sendMessage()">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+function toggleMenu() {
+  document.getElementById("nav").classList.toggle("show");
+}
+
+function toggleChat() {
+  const box = document.getElementById("chatbox");
+  box.style.display = box.style.display === "flex" ? "none" : "flex";
+}
+
+function saveSettings() {
+  const key = document.getElementById("apiKey").value.trim();
+  if (!key) {
+    document.getElementById("status").textContent = "Please enter your API key.";
+    return;
+  }
+
+  // Session only: key is not stored permanently.
+  sessionStorage.setItem("groq_api_key", key);
+  document.getElementById("status").textContent = "API key saved for this session.";
+}
+
+function addMessage(message, type) {
+  const messages = document.getElementById("messages");
+  const div = document.createElement("div");
+  div.className = "message " + type;
+  div.textContent = message;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+  return div;
+}
+
+async function sendMessage() {
+  const input = document.getElementById("question");
+  const question = input.value.trim();
+  const key = sessionStorage.getItem("groq_api_key") ||
+              document.getElementById("apiKey").value.trim();
+  const model = document.getElementById("model").value;
+
+  if (!question) return;
+
+  if (!key) {
+    addMessage("Please enter and save your Groq API key first.", "bot");
+    return;
+  }
+
+  addMessage(question, "user");
+  input.value = "";
+  const loading = addMessage("Thinking...", "bot");
+
+  const systemPrompt = `
+You are Sandipani School's AI Assistant.
+
+School details:
+Name: Government Sandipani School.
+Location: Chhatwai, Shahdol, Madhya Pradesh, India.
+School type: Government co-educational school.
+Principal: Archna Khare Mam.
+AI Trainer: Aditya Chauhan Sir.
+Website: https://adityasir.in
+AI Training timing: 3:30 PM to 5:00 PM.
+Other mentors: Chandan Saroj Sir (Delhi), Rajat Sir (Agra).
+Training subjects: Python, Artificial Intelligence,
+Machine Learning, Computer Vision and Data Science.
+
+Instructions:
+1. Answer in the same language as the student.
+2. Support Hindi, English and Hinglish.
+3. Explain technical concepts in simple language.
+4. Keep answers helpful and student-friendly.
+5. For unknown school information, do not invent facts.
+6. Never invent fees, phone numbers or school results.
+`;
+
+  try {
+    const response = await fetch(
+      "https://api.groq.com/openai/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + key
+        },
+        body: JSON.stringify({
+          model: model,
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: question }
+          ],
+          temperature: 0.6,
+          max_tokens: 1200
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error?.message || "API request failed.");
+    }
+
+    loading.textContent =
+      data.choices?.[0]?.message?.content || "No response received.";
+
+  } catch (error) {
+    loading.textContent = "Error: " + error.message;
+  }
+}
+</script>
+
+</body>
+</html>
